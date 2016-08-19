@@ -23,7 +23,7 @@
     "SparkMD5": "^1.0.0",
     "kbase-common-js": "^1.0.0",
     "kbase-ui-widget": "^1.0.0",
-    "kbase-service-clients-js": "2.10.0"
+    "kbase-service-clients-js": "^2.10.0"
   },
   "devDependencies": {},
   "ignore": [
