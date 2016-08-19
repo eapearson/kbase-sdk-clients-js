@@ -1,0 +1,35 @@
+{
+  "name": "kbase-sdk-clients-js",
+  "description": "Javascript clients for KBase SDK Dynamic Services",
+  "author": [
+    "kbase"
+  ],
+  "keywords": [
+    "kbase",
+    "sdk",
+    "client"
+  ],
+  "authors": [
+    "Erik Pearson <eapearson@lbl.gov>"
+  ],
+  "moduleType": "amd-library",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kbase/kbase-sdk-clients-js"
+  },
+  "dependencies": {
+    "jquery": "^2.1.0",
+    "bluebird": "^3.0.0",
+    "SparkMD5": "^1.0.0",
+    "kbase-common-js": "^1.0.0",
+    "kbase-ui-widget": "^1.0.0",
+    "kbase-service-clients-js": "2.10.0"
+  },
+  "devDependencies": {},
+  "ignore": [
+    "src",
+    ".gitignore",
+    "package.json"
+  ],
+  "license": "SEE LICENSE IN LICENSE.md"
+}
