@@ -189,7 +189,7 @@ define([
         this.get_all_data = function (p) {
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'TaxonAPI.get_version',
+                    var method = 'TaxonAPI.get_all_data',
                         params = [p];
                     return jsonRpc.request(serviceStatus.url, method, params, 1, options());
                 });
@@ -198,7 +198,7 @@ define([
         this.get_decorated_scientific_lineage = function (p) {
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'TaxonAPI.get_version',
+                    var method = 'TaxonAPI.get_decorated_scientific_lineage',
                         params = [p];
                     return jsonRpc.request(serviceStatus.url, method, params, 1, options());
                 });
