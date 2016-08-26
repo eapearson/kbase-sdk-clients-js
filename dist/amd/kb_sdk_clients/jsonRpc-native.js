@@ -1,52 +1,13 @@
 /*global define */
 /*jslint white:true,browser:true*/
-define(['./ajax'], function (ajax) {
+define(['./ajax', './exceptions'], function (ajax, exceptions) {
     'use strict';
 
-    /*
-     * A reponse which is invalid.
-     * A valid response is most likely a non- or improper-JSON string
-     * 
-     */
-    function InvalidResponseError(originalError, url, data) {
-        this.originalError = originalError;
-        this.url = url;
-        this.responseData = data;
-    }
-    InvalidResponseError.prototype = Object.create(Error.prototype);
-    InvalidResponseError.prototype.constructor = InvalidResponseError;
-    InvalidResponseError.prototype.name = 'InvalidResponseError';
-
-    /*
-     * An error returned by the http server (an http server error)
-     */
-    function RequestError(statusCode, statusText, url, message) {
-        console.log('request error with message', message);
-        this.url = url;
-        this.message = message;
-        this.statusCode = statusCode;
-        this.statusText = statusText;
-    }
-    RequestError.prototype = Object.create(Error.prototype);
-    RequestError.prototype.constructor = RequestError;
-    RequestError.prototype.name = 'RequestError';
-    
-    function JsonRpcError(url, error) {
-        this.url = url;
-        this.message = error.message;
-        this.detail = error.error;
-        this.type = error.name;
-        this.code = error.code;
-    };
-    JsonRpcError.prototype = Object.create(Error.prototype);
-    JsonRpcError.prototype.constructor = JsonRpcError;
-    JsonRpcError.prototype.name = 'JsonRpcError';
-
-
-    function request(url, method, params, numRets, options) {
+    function request(url, module, func, params, numRets, options) {
+        // Argh -- a poor man's json rpc.
         var rpc = {
             params: params,
-            method: method,
+            method: module + '.' + func,
             version: '1.1',
             id: String(Math.random()).slice(2)
         },
@@ -75,24 +36,46 @@ define(['./ajax'], function (ajax) {
             })
             .catch(function (err) {
                 if (err.xhr && err.xhr.responseText) {
+                    var data;
                     try {
-                        var data = JSON.parse(err.xhr.responseText);
+                        data = JSON.parse(err.xhr.responseText);
                         // follows a weird convention. In any case, let us throw
                         // it as an exception.
                     } catch (ex) {
                         // not json, oh well.                        
-                        throw new RequestError(err.xhr.status, err.xhr.statusText, url, err.xhr.responseText);
+                        throw new exceptions.RequestError(err.xhr.status, err.xhr.statusText, url, err.xhr.responseText);
                     }
-                    throw new JsonRpcError(url, data.error);
-                } else {
-                    throw err;
+                    
+                    // DANGER: This is highly dependent up on what is returned in
+                    // the "error.error" property of ... the error object.
+                    // It is assumbed to be a newline separated list of strings
+                    // the penultimate one of which is a simple string expressing
+                    // the exception.
+                    var maybeStackTrace,
+                        maybeErrorName;
+                        
+                    if (data.error && data.error.error && typeof data.error.error === 'string') {                    
+                        maybeStackTrace = data.error.error.split('\n');
+                    
+                        if (maybeStackTrace.length >= 2) {
+                            maybeErrorName = maybeStackTrace[maybeStackTrace.length - 2];
+                        }
+                    }
+                        
+                    switch (maybeErrorName) {
+                        case 'AttributeError': 
+                            throw new exceptions.AttributeError(module, func, data);
+                            break;
+                        default:
+                            throw new exceptions.JsonRpcError(module, func, params, url, data.error);
+                    }
+                    
                 }
+                throw err;
             });
     }
 
     return Object.freeze({
-        request: request,
-        InvalidResponseError: InvalidResponseError,
-        ServerError: RequestError
+        request: request
     });
 });
