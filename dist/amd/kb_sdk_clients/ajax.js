@@ -57,16 +57,16 @@ define([
             xhr.onload = function () {
                 if (xhr.status >= 400 && xhr.status < 500) {
                     reject(new ClientException(xhr.status, 'Client Error', xhr));
-                }
-                if (xhr.status >= 500) {
+                } else if (xhr.status >= 500) {
                     reject(new ServerException(xhr.status, 'Server Error', xhr));
-                }
-                
-                // var buf = new Uint8Array(xhr.response);
-                try {
-                    resolve(xhr.response);
-                } catch (ex) {
-                    reject(ex);
+                } else {
+
+                    // var buf = new Uint8Array(xhr.response);
+                    try {
+                        resolve(xhr.response);
+                    } catch (ex) {
+                        reject(ex);
+                    }
                 }
             };
             

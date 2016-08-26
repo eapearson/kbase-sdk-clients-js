@@ -6,6 +6,7 @@ define([
     'use strict';
 
     function AssemblyAPI(arg) {
+        var module = 'AssemblyAPI';
         // Establish an auth object which has properties token and user_id.
         var auth;
         if (typeof arg.auth === 'function') {
@@ -31,121 +32,179 @@ define([
         }
 
         this.lookupModule = function () {
-            var method = 'ServiceWizard.get_service_status',
+            var func = 'get_service_status',
                 params = [{
-                        module_name: 'AssemblyAPI',
-                        version: arg.version || 'dev'
+                        module_name: module,
+                        version: arg.version
                     }];
-            return jsonRpc.request(arg.url, method, params, 1, options());
+            return jsonRpc.request(arg.url, 'ServiceWizard', func, params, 1, options());
         };
 
+        /*
+         * ref
+         */
+        this.get_assembly_id = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_assembly_id';
 
-        this.get_assembly_id = function (ref) {
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'AssemblyAPI.get_assembly_id',
-                        params = [ref];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_genome_annotations = function (ref) {
+
+        /*
+         * ref
+         */
+        this.get_genome_annotations = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_genome_annotations';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'AssemblyAPI.get_genome_annotations',
-                        params = [ref];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_external_source_info = function (ref) {
+
+        /*
+         * ref
+         */
+        this.get_external_source_info = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_external_source_info';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'AssemblyAPI.get_external_source_info',
-                        params = [ref];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_stats = function (ref) {
+
+        /*
+         * ref
+         */
+        this.get_stats = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_stats';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'AssemblyAPI.get_stats',
-                        params = [ref];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_number_contigs = function (ref) {
+
+        /*
+         * ref
+         */
+        this.get_number_contigs = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_number_contigs';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'AssemblyAPI.get_number_contigs',
-                        params = [ref];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_gc_content = function (ref) {
+
+        /*
+         * ref
+         */
+        this.get_gc_content = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_gc_content';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'AssemblyAPI.get_gc_content',
-                        params = [ref];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_dna_size = function (ref) {
+
+        /*
+         * ref
+         */
+        this.get_dna_size = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_dna_size';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'AssemblyAPI.get_dna_size',
-                        params = [ref];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_contig_ids = function (ref) {
+
+        /*
+         * ref
+         */
+        this.get_contig_ids = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_contig_ids';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'AssemblyAPI.get_contig_ids',
-                        params = [ref];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_contig_lengths = function (ref, contig_id_list) {
+
+        /*
+         * ref, contig_id_list
+         */
+        this.get_contig_lengths = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_contig_lengths';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'AssemblyAPI.get_contig_lengths',
-                        params = [ref, contig_id_list];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });            
         };
 
-        this.get_contig_gc_content = function (ref, contig_id_list) {
+
+        /*
+         * ref, contig_id_list
+         */
+        this.get_contig_gc_content = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_contig_gc_content';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'AssemblyAPI.get_contig_gc_content',
-                        params = [ref, contig_id_list];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 }); 
         };
 
-        this.get_contigs = function (ref, contig_id_list) {
+
+        /*
+         * ref, contig_id_list
+         */
+        this.get_contigs = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_contigs';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'AssemblyAPI.get_contigs',
-                        params = [ref, contig_id_list];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 }); 
 
         };
 
+
+        /*
+         * 
+         */
         this.status = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_contigs';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'AssemblyAPI.get_contigs',
-                        params = [];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
     }
