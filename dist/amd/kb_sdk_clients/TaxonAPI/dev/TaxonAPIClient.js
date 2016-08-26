@@ -286,6 +286,16 @@ define([
                     return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
+        
+        this.get_decorated_children = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_decorated_children';
+
+            return this.lookupModule()
+                .then(function (serviceStatus) {
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
+                });
+        };
 
         /*
          * ref
