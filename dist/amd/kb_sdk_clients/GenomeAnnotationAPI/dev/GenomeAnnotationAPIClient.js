@@ -263,6 +263,24 @@ define([
                 });
         };
 
+        this.get_genome_v1 = function (params) {
+            return this.lookupModule()
+                .then(function (serviceStatus) {
+                    var method = 'GenomeAnnotationAPI.get_genome_v1',
+                        params = [params];
+                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                });
+        };
+
+        this.save_one_genome_v1 = function (params) {
+            return this.lookupModule()
+                .then(function (serviceStatus) {
+                    var method = 'GenomeAnnotationAPI.save_one_genome_v1',
+                        params = [params];
+                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                });
+        };
+
         this.status = function () {
             return this.lookupModule()
                 .then(function (serviceStatus) {
