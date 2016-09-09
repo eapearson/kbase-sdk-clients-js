@@ -1,36 +1,7 @@
 /*global define */
 /*jslint white:true,browser:true*/
-define(['jquery', 'bluebird'], function ($, Promise) {
+define(['jquery', 'bluebird', './exceptions'], function ($, Promise, exceptions) {
     'use strict';
-
-    /*
-     * A reponse which is invalid.
-     * A valid response is most likely a non- or improper-JSON string
-     * 
-     */
-    function InvalidResponseError(originalError, url, data) {
-        this.name = 'InvalidResponseError';
-        this.originalError = originalError;
-        this.url = url;
-        this.responseData = data;
-    }
-    InvalidResponseError.prototype = Object.create(Error);
-    InvalidResponseError.prototype.constructor = InvalidResponseError;
-
-    /*
-     * An error returned by the http server (an http server error)
-     */
-    function RequestError(statusCode, statusText, jqueryTextStatus, url, message) {
-        this.name = 'ServerError';
-        this.url = url;
-        this.message = message;
-        this.statusCode = statusCode;
-        this.statusText = statusText;
-        this.jqueryErrorString = jqueryTextStatus;
-    }
-    RequestError.prototype = Object.create(Error);
-    RequestError.prototype.constructor = RequestError;
-
 
     function request(url, method, params, numRets, options) {
         var rpc = {
@@ -51,8 +22,6 @@ define(['jquery', 'bluebird'], function ($, Promise) {
             };
         }
         
-        console.log('sending', url, rpc);
-
         return new Promise(function (resolve, reject) {
             $.ajax({
                 url: url,
@@ -72,7 +41,7 @@ define(['jquery', 'bluebird'], function ($, Promise) {
                             resolve(resp.result);
                         }
                     } catch (err) {
-                        reject(new InvalidResponseError(err, url, data));
+                        reject(new exceptions.InvalidResponseError(err, url, data));
                     }
                 },
                 error: function (xhr, textStatus) {
@@ -90,10 +59,10 @@ define(['jquery', 'bluebird'], function ($, Promise) {
                         } catch (err) {
                             // A server error which is not valid JSON.
                             // This actually is the expected condition for a server error.
-                            reject(new RequestError(xhr.status, xhr.statusText, textStatus, url, xhr.responseText));
+                            reject(new exceptions.RequestError(xhr.status, xhr.statusText, textStatus, url, xhr.responseText));
                         }
                     } else {
-                        reject(new RequestError(xhr.status, xhr.statusText, textStatus, url, 'Unknown Error'));
+                        reject(new exceptions.RequestError(xhr.status, xhr.statusText, url, 'Unknown Error'));
                     }
                 }
             });
@@ -101,8 +70,6 @@ define(['jquery', 'bluebird'], function ($, Promise) {
     }
 
     return Object.freeze({
-        request: request,
-        InvalidResponseError: InvalidResponseError,
-        ServerError: RequestError
+        request: request
     });
 });

@@ -1,11 +1,12 @@
 /*global define */
-/*jslint white:true,browser:true,jsnomen:true*/
+/*jslint white:true,browser:true,nomen:true*/
 define([
     '../../jsonRpc-native'
 ], function (jsonRpc) {
     'use strict';
 
     function GenomeAnnotationAPI(arg) {
+        var module = 'GenomeAnnotationAPI';
         // Establish an auth object which has properties token and user_id.
         var auth;
         if (typeof arg.auth === 'function') {
@@ -13,7 +14,7 @@ define([
         } else {
             auth = arg.auth || {};
         }
-        
+
         if (!arg.url) {
             throw new Error('The service discovery url was not provided');
         }
@@ -30,263 +31,375 @@ define([
         }
 
         this.lookupModule = function () {
-            var method = 'ServiceWizard.get_service_status',
+            var func = 'get_service_status',
                 params = [{
-                        module_name: 'GenomeAnnotationAPI',
+                        module_name: module,
                         version: arg.version
                     }];
-            return jsonRpc.request(arg.url, method, params, 1, options());
+            return jsonRpc.request(arg.url, 'ServiceWizard', func, params, 1, options());
         };
 
-        this.get_taxon = function (inputs_get_taxon) {
+        /*
+         * inputs_get_taxon
+         */
+        this.get_taxon = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_taxon';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_taxon',
-                        params = [inputs_get_taxon];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_assembly = function (inputs_get_assembly) {
+        /*
+         * inputs_get_assembly
+         */
+        this.get_assembly = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_assembly';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_assembly',
-                        params = [inputs_get_assembly];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_feature_types = function (inputs_get_feature_types) {
+        /*
+         * inputs_get_feature_types
+         */
+        this.get_feature_types = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_feature_types';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_feature_types',
-                        params = [inputs_get_feature_types];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_feature_type_descriptions = function (inputs_get_feature_type_descriptions) {
+        /*
+         * inputs_get_feature_type_descriptions
+         */
+        this.get_feature_type_descriptions = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_feature_type_descriptions';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_feature_type_descriptions',
-                        params = [inputs_get_feature_type_descriptions];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_feature_type_counts = function (inputs_get_feature_type_counts) {
+        /*
+         * inputs_get_feature_type_counts
+         */
+        this.get_feature_type_counts = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_feature_type_counts';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_feature_type_counts',
-                        params = [inputs_get_feature_type_counts];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_feature_ids = function (inputs_get_feature_ids) {
+        /*
+         * inputs_get_feature_ids
+         */
+        this.get_feature_ids = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_feature_ids';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_feature_ids',
-                        params = [inputs_get_feature_ids];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_features = function (inputs_get_features) {
-            return this.lookupModule()
-                .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_features',
-                        params = [inputs_get_features];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
-                });            
-        };
+        /*
+         * inputs_get_features
+         */
+        this.get_features = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_features';
 
-        this.get_features2 = function (params) {
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_features2',
-                        params = [params];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_proteins = function (inputs_get_proteins) {
+        /*
+         * params
+         */
+        this.get_features2 = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_features2';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_proteins',
-                        params = [inputs_get_proteins];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_feature_locations = function (inputs_get_feature_locations) {
+        /*
+         * inputs_get_proteins
+         */
+        this.get_proteins = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_proteins';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_feature_locations',
-                        params = [inputs_get_feature_locations];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_feature_publications = function (inputs_get_feature_publications) {
+        /*
+         * inputs_get_feature_locations
+         */
+        this.get_feature_locations = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_feature_locations';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_feature_publications',
-                        params = [inputs_get_feature_publications];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_feature_dna = function (inputs_get_feature_dna) {
+        /*
+         * inputs_get_feature_publications
+         */
+        this.get_feature_publications = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_feature_publications';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_feature_dna',
-                        params = [inputs_get_feature_dna];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_feature_functions = function (inputs_get_feature_functions) {
+        /*
+         * inputs_get_feature_dna
+         */
+        this.get_feature_dna = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_feature_dna';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_feature_functions',
-                        params = [inputs_get_feature_functions];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_feature_aliases = function (inputs_get_feature_aliases) {
+        /*
+         * inputs_get_feature_functions
+         */
+        this.get_feature_functions = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_feature_functions';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_feature_aliases',
-                        params = [inputs_get_feature_aliases];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_cds_by_gene = function (inputs_get_cds_by_gene) {
+        /*
+         * inputs_get_feature_aliases
+         */
+        this.get_feature_aliases = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_feature_aliases';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_cds_by_gene',
-                        params = [inputs_get_cds_by_gene];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_cds_by_mrna = function (inputs_mrna_id_list) {
+        /*
+         * inputs_get_cds_by_gene
+         */
+        this.get_cds_by_gene = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_cds_by_gene';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_cds_by_mrna',
-                        params = [inputs_mrna_id_list];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_gene_by_cds = function (inputs_get_gene_by_cds) {
+        /*
+         * inputs_mrna_id_list
+         */
+        this.get_cds_by_mrna = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_cds_by_mrna';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_gene_by_cds',
-                        params = [inputs_get_gene_by_cds];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_gene_by_mrna = function (inputs_get_gene_by_mrna) {
+        /*
+         * inputs_get_gene_by_cds
+         */
+        this.get_gene_by_cds = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_gene_by_cds';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_gene_by_mrna',
-                        params = [inputs_get_gene_by_mrna];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_mrna_by_cds = function (inputs_get_mrna_by_cds) {
+        /*
+         * inputs_get_gene_by_mrna
+         */
+        this.get_gene_by_mrna = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_gene_by_mrna';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_mrna_by_cds',
-                        params = [inputs_get_mrna_by_cds];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_mrna_by_gene = function (inputs_get_mrna_by_gene) {
+        /*
+         * inputs_get_mrna_by_cds
+         */
+        this.get_mrna_by_cds = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_mrna_by_cds';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_mrna_by_gene',
-                        params = [inputs_get_mrna_by_gene];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_mrna_exons = function (inputs_get_mrna_exons) {
+        /*
+         * inputs_get_mrna_by_gene
+         */
+        this.get_mrna_by_gene = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_mrna_by_gene';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_mrna_exons',
-                        params = [inputs_get_mrna_exons];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_mrna_utrs = function (inputs_get_mrna_utrs) {
+        /*
+         * inputs_get_mrna_exons
+         */
+        this.get_mrna_exons = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_mrna_exons';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_mrna_utrs',
-                        params = [inputs_get_mrna_utrs];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_summary = function (inputs_get_summary) {
+        /*
+         * inputs_get_mrna_utrs
+         */
+        this.get_mrna_utrs = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_mrna_utrs';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_summary',
-                        params = [inputs_get_summary];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.save_summary = function (inputs_save_summary) {
+        /*
+         * inputs_get_summary
+         */
+        this.get_summary = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_summary';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.save_summary',
-                        params = [inputs_save_summary];
-                    return jsonRpc.request(serviceStatus.url, method, params, 2, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.get_combined_data = function (params) {
+        /*
+         * inputs_save_summary
+         */
+        this.save_summary = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'save_summary';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_combined_data',
-                        params = [params];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 2, options());
                 });
         };
 
-        this.get_genome_v1 = function (params) {
+        /*
+         * params
+         */
+        this.get_combined_data = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_combined_data';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.get_genome_v1',
-                        params = [params];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
-        this.save_one_genome_v1 = function (params) {
+        /*
+         * params
+         */
+        this.get_genome_v1 = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_genome_v1';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.save_one_genome_v1',
-                        params = [params];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
 
+        /*
+         * params
+         */
+        this.save_one_genome_v1 = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'save_one_genome_v1';
+
+            return this.lookupModule()
+                .then(function (serviceStatus) {
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
+                });
+        };
+
+        /*
+         * 
+         */
         this.status = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'status';
+
             return this.lookupModule()
                 .then(function (serviceStatus) {
-                    var method = 'GenomeAnnotationAPI.status',
-                        params = [];
-                    return jsonRpc.request(serviceStatus.url, method, params, 1, options());
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
                 });
         };
     }
