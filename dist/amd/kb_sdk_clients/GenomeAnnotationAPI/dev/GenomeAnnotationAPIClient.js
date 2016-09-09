@@ -365,6 +365,32 @@ define([
         };
 
         /*
+         * params
+         */
+        this.get_genome_v1 = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'get_genome_v1';
+
+            return this.lookupModule()
+                .then(function (serviceStatus) {
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
+                });
+        };
+
+        /*
+         * params
+         */
+        this.save_one_genome_v1 = function () {
+            var params = Array.prototype.slice.call(arguments),
+                func = 'save_one_genome_v1';
+
+            return this.lookupModule()
+                .then(function (serviceStatus) {
+                    return jsonRpc.request(serviceStatus.url, module, func, params, 1, options());
+                });
+        };
+
+        /*
          * 
          */
         this.status = function () {
