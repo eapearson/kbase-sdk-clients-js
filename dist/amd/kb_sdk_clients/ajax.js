@@ -89,8 +89,7 @@ define([
                 reject(new GeneralException('Error opening request', xhr));
             }
 
-            try {
-                
+            try {                
                 if (options.header) {
                     Object.keys(options.header).forEach(function (key) {
                         xhr.setRequestHeader(key, options.header[key]);
