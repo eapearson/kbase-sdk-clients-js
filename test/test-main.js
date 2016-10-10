@@ -16,33 +16,25 @@ require.config({
     callback: window.__karma__.start
 });
 
-define('kb_config', function () {
-    return {
-        username: 'eapearson',
-        password: 'Oc3an1cWhal3',
-        serviceWizardUrl:  'https://ci.kbase.us/services/service_wizard',
-        loginUrl: 'https://ci.kbase.us/services/authorization/Sessions/Login',
-        workspaceId: 11967
-    };    
-});
-
 
 function addCdnModules(baseUrl) {
     if (!baseUrl) {
-        baseUrl = 'https://ci.kbase.us/cdn/files';
+        // baseUrl = 'https://ci.kbase.us/cdn/files';
         // baseUrl = 'http://cdn.kbase.us/cdn';
+        baseUrl = 'http://localhost:10001';
     }
     var modules = {
-        kb_common: 'kbase-common-js/1.5.4/',
-        kb_service: 'kbase-service-clients-js/2.9.1/',
-        uuid: 'pure-uuid/1.3.0/uuid',
-        text:  'requirejs-text/2.0.14/text',
+        kb_common: 'kbase-common-js/1.9.0/',
+        kb_service: 'kbase-service-clients-js/2.10.0/',
+        uuid: 'pure-uuid/1.4.0/uuid',
+        requirejs: 'requirejs/2.3.2',
+        text:  'requirejs-text/2.0.15/text',
         css: 'require-css/0.1.8/css',
         'font-awesome': 'font-awesome/4.3.0/css/font-awesome',
-        bluebird: 'bluebird/3.3.4/bluebird',
-        jquery: 'jquery/2.2.2/jquery',
-        bootstrap: 'bootstrap/3.3.6/js/bootstrap',
-        bootstrap_css: 'bootstrap/3.3.6/css/bootstrap'
+        bluebird: 'bluebird/3.4.6/bluebird',
+        jquery: 'jquery/2.2.4/jquery',
+        bootstrap: 'bootstrap/3.3.7/js/bootstrap',
+        bootstrap_css: 'bootstrap/3.3.7/css/bootstrap'
         },
         paths = {};
 
