@@ -15,7 +15,7 @@
     "moduleType": "amd-library",
     "repository": {
         "type": "git",
-        "url": "git://github.com/kbase/kbase-sdk-clients-js"
+        "url": "git://github.com/eapearson/kbase-sdk-clients-js"
     },
     "dependencies": {
         "jquery": "^2.1.0",
