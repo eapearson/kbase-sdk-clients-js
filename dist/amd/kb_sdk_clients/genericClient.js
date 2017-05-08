@@ -9,6 +9,7 @@ define([
      * arg is:
      * url - service wizard url
      * timeout - request timeout
+     * module - sdk module
      * version - service release version or tag
      * auth - auth structure
      *   token - auth token
